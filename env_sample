@@ -1,0 +1,5 @@
+DB_PORT=5432
+DB_HOST=localhost
+DB_NAME=fiber_movies
+DB_PASS=xxx
+DB_USER=postgres
