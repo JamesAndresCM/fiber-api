@@ -3,7 +3,7 @@ package main
 import (
   "log"
   "flag"
-  "github.com/JamesACM/golang-fiber-example/migrations"
+  "github.com/JamesAndresCM/golang-fiber-example/migrations"
 )
 
 func main() {
