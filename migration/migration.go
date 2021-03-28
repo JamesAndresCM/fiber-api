@@ -7,7 +7,6 @@ import (
 func Migrate() {
 	db := configuration.GetConnection()
 	defer db.Close()
-  fmt.Println(db)
 
 	db.CreateTable(&models.Movie{})
 }
