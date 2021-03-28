@@ -3,7 +3,7 @@ package main
 import (
   "log"
   "flag"
-  "github.com/JamesAndresCM/golang-fiber-example/migrations"
+  "github.com/JamesAndresCM/golang-fiber-example/migration"
 )
 
 func main() {
@@ -12,7 +12,7 @@ func main() {
 	flag.Parse()
 	if migrate == "yes" {
 		log.Println("Start migrate process")
-		migrations.Migrate()
+		migration.Migrate()
 		log.Println("migration finished")
 	}
 }
