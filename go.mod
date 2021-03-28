@@ -1,4 +1,4 @@
-module github.com/JamesACM/golang-fiber-example
+module github.com/JamesAndresCM/golang-fiber-example
 
 go 1.14
 
