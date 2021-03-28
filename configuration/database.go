@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/JamesAndresCM/golang-fiber-example/lib"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/subosito/gotenv"
