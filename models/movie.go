@@ -8,3 +8,12 @@ type Movie struct {
 	Description  string `json:"description" gorm:"not null; unique"`
 	Year         int    `json:"year" gorm:"not null"`
 }
+
+func GetMovies(db *gorm.DB) {
+	var movies []Movie
+
+	if result := db.Find(&movies); result.Error != nil {
+		return movies, result.Error
+	}
+	return movies, nil
+}
