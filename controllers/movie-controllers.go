@@ -6,6 +6,7 @@ import (
 )
 
 func ListAllMovies(c *fiber.Ctx) error {
-  movies, _ := models.GetMovies()
+  var movie models.Movie
+  movies, _ := movie.GetMovies()
   return c.JSON(movies)
 }

@@ -13,7 +13,7 @@ type Movie struct {
 }
 
 
-func GetMovies() ([]*Movie, error) {
+func (movie *Movie) GetMovies() ([]*Movie, error) {
   db := configuration.GetConnection()
 
   movies := []*Movie{}
