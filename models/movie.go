@@ -1,6 +1,9 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+  "github.com/jinzhu/gorm"
+  "github.com/JamesAndresCM/golang-fiber-example/configuration"
+)
 
 type Movie struct {
 	gorm.Model
@@ -9,11 +12,15 @@ type Movie struct {
 	Year         int    `json:"year" gorm:"not null"`
 }
 
-func GetMovies(db *gorm.DB) {
-	var movies []Movie
+
+func GetMovies() ([]*Movie, error) {
+  db := configuration.GetConnection()
+
+  movies := []*Movie{}
 
 	if result := db.Find(&movies); result.Error != nil {
 		return movies, result.Error
 	}
 	return movies, nil
 }
+

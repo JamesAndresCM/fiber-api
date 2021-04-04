@@ -6,5 +6,8 @@ import (
 )
 
 func MovieRoutes(app *fiber.App) {
-  app.Get("api/v1/movies", controllers.ListAllMovies)
+  api := app.Group("/api")
+
+  v1 := api.Group("/v1")
+  v1.Get("/movies", controllers.ListAllMovies)
 }
