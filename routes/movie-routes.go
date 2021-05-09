@@ -10,4 +10,5 @@ func MovieRoutes(app *fiber.App) {
 
   v1 := api.Group("/v1")
   v1.Get("/movies", controllers.ListAllMovies)
+  v1.Get("/movies/:id",controllers.GetMovie)
 }
