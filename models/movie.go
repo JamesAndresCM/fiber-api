@@ -7,7 +7,6 @@ import (
 
 type Movie struct {
 	gorm.Model
-  ID           int  `json:"id" gorm:"not null; unique"`
 	Title        string `json:"title" gorm:"not null; unique"`
 	Description  string `json:"description" gorm:"not null; unique"`
 	Year         int    `json:"year" gorm:"not null"`
@@ -16,9 +15,7 @@ type Movie struct {
 
 func (movie *Movie) GetMovies() ([]*Movie, error) {
   db := configuration.GetConnection()
-
   movies := []*Movie{}
-
 	if result := db.Find(&movies); result.Error != nil {
 		return movies, result.Error
 	}
