@@ -2,6 +2,7 @@ package controllers
 
 import (
   "strconv"
+  "github.com/JamesAndresCM/golang-fiber-example/lib"
   "github.com/gofiber/fiber/v2"
   "github.com/JamesAndresCM/golang-fiber-example/models"
 )
@@ -16,11 +17,11 @@ func GetMovie(c *fiber.Ctx) error {
   var movie models.Movie
   id, err := strconv.Atoi(c.Params("id"))
   if err != nil {
-    return err
+    return c.JSON(lib.Response(200, err.Error()))
   }
   result, err := movie.GetMovie(id)
   if err != nil{
-    return err
+    return c.JSON(lib.Response(200, err.Error()))
   }
   return c.JSON(result)
 }
