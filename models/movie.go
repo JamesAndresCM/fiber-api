@@ -30,3 +30,28 @@ func (movie *Movie) GetMovie(id int) (*Movie, error) {
   return movie, nil
 }
 
+func (movie *Movie) CreateMovie() (*Movie, error) {
+  db := configuration.GetConnection()
+  if result := db.Create(&movie); result.Error != nil {
+		return movie, result.Error
+	}
+	return movie, nil
+}
+
+func (movie *Movie) Delete(id int) (int, error) {
+  db := configuration.GetConnection()
+  if result := db.Find(&movie, id); result.Error != nil{
+    return id, result.Error
+  }
+  db.Delete(&movie)
+  return id, nil
+}
+
+func (movie *Movie) Update(id int) (*Movie, error) {
+  db := configuration.GetConnection()
+  mov := Movie{Title: movie.Title, Description: movie.Description, Year: movie.Year}
+  if result := db.First(&movie, id).UpdateColumns(mov); result.Error != nil{
+    return nil, result.Error
+  }
+  return movie, nil
+}
