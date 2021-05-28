@@ -7,10 +7,26 @@ import (
 	"strconv"
 )
 
+type Meta struct {
+	//TODO:include next page, current_page, etc
+	Page          int `json:"page"`
+	TotalElements int `json:"total_elements"`
+}
+
+type Data struct {
+	Movies []*models.Movie
+	Meta   Meta
+}
+
 func ListAllMovies(c *fiber.Ctx) error {
+	page, _ := strconv.Atoi(c.Query("page"))
+	pageSize, _ := strconv.Atoi(c.Query("pageSize"))
 	var movie models.Movie
-	movies, _ := movie.GetMovies()
-	return c.JSON(movies)
+	movies, _ := movie.GetMovies(page, pageSize)
+	countmovies, _ := movie.CountMovies()
+	meta := Meta{Page: page, TotalElements: countmovies}
+	data := Data{Movies: movies, Meta: meta}
+	return c.JSON(data)
 }
 
 func GetMovie(c *fiber.Ctx) error {
