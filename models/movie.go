@@ -1,7 +1,7 @@
 package models
 
 import (
-  "github.com/JamesAndresCM/golang-fiber-example/middleware"
+  "github.com/JamesAndresCM/golang-fiber-example/models/scopes"
   "github.com/jinzhu/gorm"
   "github.com/JamesAndresCM/golang-fiber-example/configuration"
 )
@@ -16,7 +16,7 @@ type Movie struct {
 func (movie *Movie) GetMovies(page, pageSize int) ([]*Movie, error) {
   db := configuration.GetConnection()
   movies := []*Movie{}
-	if result := db.Scopes(middleware.Paginate(page, pageSize)).Find(&movies); result.Error != nil {
+	if result := db.Scopes(scopes.Paginate(page, pageSize)).Find(&movies); result.Error != nil {
 		return movies, result.Error
 	}
   return movies, nil

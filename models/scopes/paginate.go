@@ -1,4 +1,4 @@
-package middleware
+package scopes
 
 import (
 	"github.com/jinzhu/gorm"
