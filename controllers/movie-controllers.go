@@ -4,13 +4,18 @@ import (
 	"github.com/JamesAndresCM/golang-fiber-example/lib"
 	"github.com/JamesAndresCM/golang-fiber-example/models"
 	"github.com/gofiber/fiber/v2"
+	"math"
 	"strconv"
 )
 
+const ObjectsPerPage = 10
+
 type Meta struct {
 	//TODO:include next page, current_page, etc
-	Page          int `json:"page"`
-	TotalElements int `json:"total_elements"`
+	CurrentPage    int     `json:"current_page"`
+	TotalElements  int     `json:"total_elements"`
+	TotalPages     float64 `json:"total_pages"`
+	ObjectsPerPage int     `json:"objects_per_page"`
 }
 
 type Data struct {
@@ -19,12 +24,13 @@ type Data struct {
 }
 
 func ListAllMovies(c *fiber.Ctx) error {
-	page, _ := strconv.Atoi(c.Query("page"))
-	pageSize, _ := strconv.Atoi(c.Query("pageSize"))
+	page, _ := strconv.Atoi(c.Query("page", "1"))
+	pageSize, _ := strconv.Atoi(c.Query("pageSize", "10"))
 	var movie models.Movie
 	movies, _ := movie.GetMovies(page, pageSize)
 	countmovies, _ := movie.CountMovies()
-	meta := Meta{Page: page, TotalElements: countmovies}
+	totalPages := math.Ceil(float64(countmovies) / float64(pageSize))
+	meta := Meta{CurrentPage: page, TotalElements: countmovies, TotalPages: totalPages, ObjectsPerPage: ObjectsPerPage}
 	data := Data{Movies: movies, Meta: meta}
 	return c.JSON(data)
 }
