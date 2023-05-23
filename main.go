@@ -13,6 +13,7 @@ func main() {
 
   configuration.GetConnection()
   routes.MovieRoutes(app)
+  routes.UserRoutes(app)
   app.Get("/", func(c *fiber.Ctx) error {
     return c.Status(fiber.StatusOK).JSON(fiber.Map{
       "success": true,

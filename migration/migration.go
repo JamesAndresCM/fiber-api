@@ -9,4 +9,5 @@ func Migrate() {
 	defer db.Close()
 
 	db.CreateTable(&models.Movie{})
+	db.CreateTable(&models.User{})
 }
