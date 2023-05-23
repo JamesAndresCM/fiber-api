@@ -2,15 +2,28 @@ package utils
 
 import (
 	"time"
-
+	"errors"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/subosito/gotenv"
+	"os"
+	"github.com/JamesAndresCM/golang-fiber-example/lib"
 )
 
-var jwtSecret = []byte("tu_clave_secreta")
+var jwtSecret []byte
 
-func GenerateJWT(username string) (string, error) {
+func readSecret() {
+
+	file, err := os.Open("./.env")
+	lib.Fatal(err)
+	defer file.Close()
+
+	gotenv.Load()
+	jwtSecret = []byte(os.Getenv("JWT_SECRET"))
+}
+
+func GenerateJWT(id uint) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"username": username,
+		"user_id": id,
 		"exp":      time.Now().Add(time.Hour * 24).Unix(), // Token expira en 24 horas
 	})
 
@@ -20,4 +33,19 @@ func GenerateJWT(username string) (string, error) {
 	}
 
 	return tokenString, nil
+}
+
+func ParseJWT(tokenString string) (*jwt.Token, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("Método de firma no válido")
+		}
+		return jwtSecret, nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return token, nil
 }

@@ -3,3 +3,4 @@ DB_HOST=localhost
 DB_NAME=fiber_movies
 DB_PASS=xxx
 DB_USER=postgres
+JWT_SECRET=your_secret_jwt_key
