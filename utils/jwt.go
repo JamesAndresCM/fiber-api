@@ -1,12 +1,12 @@
 package utils
 
 import (
-	"time"
 	"errors"
+	"github.com/JamesAndresCM/golang-fiber-example/lib"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/subosito/gotenv"
 	"os"
-	"github.com/JamesAndresCM/golang-fiber-example/lib"
+	"time"
 )
 
 var jwtSecret []byte
@@ -24,7 +24,7 @@ func readSecret() {
 func GenerateJWT(id uint) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": id,
-		"exp":      time.Now().Add(time.Hour * 24).Unix(), // Token expira en 24 horas
+		"exp":     time.Now().Add(time.Hour * 24).Unix(), // Token expira en 24 horas
 	})
 
 	tokenString, err := token.SignedString(jwtSecret)
