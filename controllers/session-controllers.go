@@ -1,10 +1,8 @@
 package controllers
 
 import (
-	//"github.com/JamesAndresCM/golang-fiber-example/lib"
 	"github.com/JamesAndresCM/golang-fiber-example/models"
 	"github.com/gofiber/fiber/v2"
-	//"strconv"
 )
 
 func SignUp(c *fiber.Ctx) error {
@@ -26,7 +24,7 @@ func SignIn(c *fiber.Ctx) error {
 	var user models.User
 	// Obtener los datos de autenticación del cuerpo de la solicitud
 	var credentials struct {
-		Email string `json:"email"`
+		Email    string `json:"email"`
 		Password string `json:"password"`
 	}
 
@@ -49,4 +47,3 @@ func SignIn(c *fiber.Ctx) error {
 		"token": tokenString,
 	})
 }
-

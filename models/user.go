@@ -1,11 +1,11 @@
 package models
 
 import (
-	"github.com/JamesAndresCM/golang-fiber-example/configuration"
-	"golang.org/x/crypto/bcrypt"
 	"errors"
+	"github.com/JamesAndresCM/golang-fiber-example/configuration"
 	"github.com/JamesAndresCM/golang-fiber-example/utils"
 	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -48,7 +48,6 @@ func (u *User) Register() (string, error) {
 	return tokenString, nil
 }
 
-
 func (user *User) Authenticate(email, password string) (string, error) {
 	db := configuration.GetConnection()
 	if err := db.Where("email = ?", email).First(user).Error; err != nil {
@@ -71,4 +70,3 @@ func (user *User) Authenticate(email, password string) (string, error) {
 
 	return token, nil
 }
-
