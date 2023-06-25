@@ -4,14 +4,14 @@ import (
   "github.com/gofiber/fiber/v2"
   "github.com/gofiber/fiber/v2/middleware/logger" 
   "github.com/JamesAndresCM/golang-fiber-example/routes"
-  "github.com/JamesAndresCM/golang-fiber-example/configuration"
+  "github.com/JamesAndresCM/golang-fiber-example/db"
 )
 
 func main() {
   app := fiber.New()
   app.Use(logger.New())
 
-  configuration.GetConnection()
+  db.GetConnection()
   routes.MovieRoutes(app)
   routes.UserRoutes(app)
   app.Get("/", func(c *fiber.Ctx) error {

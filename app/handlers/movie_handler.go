@@ -1,8 +1,8 @@
-package controllers
+package handlers
 
 import (
 	"github.com/JamesAndresCM/golang-fiber-example/lib"
-	"github.com/JamesAndresCM/golang-fiber-example/models"
+	"github.com/JamesAndresCM/golang-fiber-example/app/models"
 	"github.com/gofiber/fiber/v2"
 	"math"
 	"strconv"

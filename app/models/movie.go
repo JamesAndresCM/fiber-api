@@ -1,8 +1,8 @@
 package models
 
 import (
-	"github.com/JamesAndresCM/golang-fiber-example/configuration"
-	"github.com/JamesAndresCM/golang-fiber-example/models/scopes"
+	"github.com/JamesAndresCM/golang-fiber-example/db"
+	"github.com/JamesAndresCM/golang-fiber-example/app/models/scopes"
 	"github.com/jinzhu/gorm"
 )
 
@@ -16,7 +16,7 @@ type Movie struct {
 }
 
 func (movie *Movie) GetMovies(page, pageSize int) ([]*Movie, error) {
-	db := configuration.GetConnection()
+	db := db.GetConnection()
 	movies := []*Movie{}
 	if result := db.Scopes(scopes.Paginate(page, pageSize)).Find(&movies); result.Error != nil {
 		return movies, result.Error
@@ -25,7 +25,7 @@ func (movie *Movie) GetMovies(page, pageSize int) ([]*Movie, error) {
 }
 
 func (movie *Movie) CountMovies() (int, error) {
-	db := configuration.GetConnection()
+	db := db.GetConnection()
 	movies := []*Movie{}
 	var count int
 	if result := db.Find(&movies).Count(&count); result.Error != nil {
@@ -35,7 +35,7 @@ func (movie *Movie) CountMovies() (int, error) {
 }
 
 func (movie *Movie) GetMovie(id int) (*Movie, error) {
-	db := configuration.GetConnection()
+	db := db.GetConnection()
 	if result := db.Find(&movie, id); result.Error != nil {
 		return movie, result.Error
 	}
@@ -43,7 +43,7 @@ func (movie *Movie) GetMovie(id int) (*Movie, error) {
 }
 
 func (movie *Movie) CreateMovie() (*Movie, error) {
-	db := configuration.GetConnection()
+	db := db.GetConnection()
 	if result := db.Create(&movie); result.Error != nil {
 		return movie, result.Error
 	}
@@ -51,7 +51,7 @@ func (movie *Movie) CreateMovie() (*Movie, error) {
 }
 
 func (movie *Movie) Delete(id int) (int, error) {
-	db := configuration.GetConnection()
+	db := db.GetConnection()
 	if result := db.Find(&movie, id); result.Error != nil {
 		return id, result.Error
 	}
@@ -60,7 +60,7 @@ func (movie *Movie) Delete(id int) (int, error) {
 }
 
 func (movie *Movie) Update(id int) (*Movie, error) {
-	db := configuration.GetConnection()
+	db := db.GetConnection()
 	mov := Movie{Title: movie.Title, Description: movie.Description, Year: movie.Year}
 	if result := db.First(&movie, id).UpdateColumns(mov); result.Error != nil {
 		return nil, result.Error
