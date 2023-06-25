@@ -3,7 +3,7 @@ package models
 import (
 	"errors"
 	"github.com/JamesAndresCM/golang-fiber-example/db"
-	"github.com/JamesAndresCM/golang-fiber-example/utils"
+	"github.com/JamesAndresCM/golang-fiber-example/app/utils"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 )

@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/JamesAndresCM/golang-fiber-example/db"
-	"github.com/JamesAndresCM/golang-fiber-example/models/scopes"
+	"github.com/JamesAndresCM/golang-fiber-example/app/models/scopes"
 	"github.com/jinzhu/gorm"
 )
 
