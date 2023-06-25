@@ -2,7 +2,7 @@ package models
 
 import (
 	"errors"
-	"github.com/JamesAndresCM/golang-fiber-example/configuration"
+	"github.com/JamesAndresCM/golang-fiber-example/db"
 	"github.com/JamesAndresCM/golang-fiber-example/utils"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
@@ -17,7 +17,7 @@ type User struct {
 }
 
 func (u *User) Register() (string, error) {
-	db := configuration.GetConnection()
+	db := db.GetConnection()
 	// Verificar si el nombre de usuario ya está en uso
 	if !db.Where("name = ?", u.Name).First(&User{}).RecordNotFound() {
 		return "", errors.New("El nombre de usuario ya está en uso")
@@ -49,7 +49,7 @@ func (u *User) Register() (string, error) {
 }
 
 func (user *User) Authenticate(email, password string) (string, error) {
-	db := configuration.GetConnection()
+	db := db.GetConnection()
 	if err := db.Where("email = ?", email).First(user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return "", errors.New("Usuario no encontrado")
