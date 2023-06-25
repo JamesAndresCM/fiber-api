@@ -1,8 +1,8 @@
 package migration
 
 import (
-  "github.com/JamesAndresCM/golang-fiber-example/configuration"
-  "github.com/JamesAndresCM/golang-fiber-example/models"
+  "github.com/JamesAndresCM/golang-fiber-example/db"
+  "github.com/JamesAndresCM/golang-fiber-example/app/models"
 )
 func Migrate() {
 	db := configuration.GetConnection()

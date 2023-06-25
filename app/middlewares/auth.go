@@ -1,7 +1,7 @@
 package middlewares
 
 import (
-	"github.com/JamesAndresCM/golang-fiber-example/utils"
+	"github.com/JamesAndresCM/golang-fiber-example/app/utils"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"strings"
