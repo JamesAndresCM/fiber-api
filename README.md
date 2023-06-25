@@ -29,5 +29,5 @@ curl --location 'localhost:8000/api/v1/sign-in' \
 * authenticate route
 ```
 curl --location 'localhost:8000/api/v1/current_user' \
---header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODQ4ODQ5NzQsIm5hbWUiOiJqYWltZUBkb21haW4uY29tIn0.Vsv4HeoeRmb5ajBeEy1W7wEyOoTQJAmAF9UflaFJhuM'
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODQ4ODQ5NzQsIm5hbWUiOiJqYWltZUBkb21haW4uY29tIn0.Vsv4HeoeRmb5ajBeEy1W7wEyOoTQJAmAF9UflaFJhuM'
 ```
