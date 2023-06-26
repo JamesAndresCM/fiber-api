@@ -7,3 +7,8 @@ type User struct {
 	Password string  `json:"password"`
 	Movies   []Movie `json:"movies"`
 }
+
+type CustomUser struct {
+	ID       uint    `gorm:"primary_key" json:"-"`
+	Name     string  `json:"name"`
+}

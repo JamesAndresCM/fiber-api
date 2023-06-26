@@ -6,9 +6,10 @@ import (
 	"os"
 
 	"github.com/JamesAndresCM/golang-fiber-example/lib"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+  "gorm.io/gorm"
+  "gorm.io/driver/postgres"
 	"github.com/subosito/gotenv"
+  "gorm.io/gorm/logger"
 )
 
 type database struct {
@@ -40,12 +41,17 @@ func getConfiguration() database {
 }
 
 func GetConnection() *gorm.DB {
-	c := getConfiguration()
-	fmt.Println("new postgresql connection")
-	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
-		c.Host, c.Port, c.User, c.Database, c.Password)
-	db, err := gorm.Open("postgres", psqlInfo)
-	lib.Fatal(err)
+    c := getConfiguration()
+    psqlInfo := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
+        c.Host, c.Port, c.User, c.Database, c.Password)
+    
+    db, err := gorm.Open(postgres.Open(psqlInfo), &gorm.Config{
+      Logger: logger.Default.LogMode(logger.Info),
+    })
+    //db, err := gorm.Open(postgres.Open(psqlInfo), &gorm.Config{})
+    if err != nil {
+        panic(err)
+    }
 
-	return db
+    return db
 }

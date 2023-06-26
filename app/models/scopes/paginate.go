@@ -1,7 +1,7 @@
 package scopes
 
 import (
-	"github.com/jinzhu/gorm"
+"gorm.io/gorm"
 )
 
 func Paginate(page, pageSize int) func(db *gorm.DB) *gorm.DB {
