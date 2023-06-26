@@ -3,7 +3,7 @@ package models
 import (
 	"github.com/JamesAndresCM/golang-fiber-example/db"
 	"github.com/JamesAndresCM/golang-fiber-example/app/models/scopes"
-	"github.com/jinzhu/gorm"
+  "gorm.io/gorm"
 )
 
 type Movie struct {
@@ -11,23 +11,25 @@ type Movie struct {
 	Title       string `json:"title" gorm:"not null; unique"`
 	Description string `json:"description" gorm:"not null; unique"`
 	Year        int    `json:"year" gorm:"not null"`
-	UserID      uint   `json:"user_id"`
-	User        User   `gorm:"foreignkey:UserID" json:"user"`
+	UserID      uint   `json:"-"`
+	User        CustomUser   `gorm:"foreignkey:UserID" json:"user"`
 }
 
 func (movie *Movie) GetMovies(page, pageSize int) ([]*Movie, error) {
-	db := db.GetConnection()
-	movies := []*Movie{}
-	if result := db.Scopes(scopes.Paginate(page, pageSize)).Find(&movies); result.Error != nil {
-		return movies, result.Error
-	}
-	return movies, nil
+    db := db.GetConnection()
+    movies := []*Movie{}
+    if result := db.Scopes(scopes.Paginate(page, pageSize)).Preload("User", func(db *gorm.DB) *gorm.DB {
+        return db.Table("users")
+    }).Joins("JOIN users on movies.user_id = users.id").Find(&movies); result.Error != nil {
+        return movies, result.Error
+    }
+    return movies, nil
 }
 
-func (movie *Movie) CountMovies() (int, error) {
+func (movie *Movie) CountMovies() (int64, error) {
 	db := db.GetConnection()
 	movies := []*Movie{}
-	var count int
+	var count int64
 	if result := db.Find(&movies).Count(&count); result.Error != nil {
 		return 0, result.Error
 	}

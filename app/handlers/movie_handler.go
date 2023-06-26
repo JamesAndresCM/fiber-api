@@ -30,7 +30,7 @@ func ListAllMovies(c *fiber.Ctx) error {
 	movies, _ := movie.GetMovies(page, pageSize)
 	countmovies, _ := movie.CountMovies()
 	totalPages := math.Ceil(float64(countmovies) / float64(pageSize))
-	meta := Meta{CurrentPage: page, TotalElements: countmovies, TotalPages: totalPages, ObjectsPerPage: ObjectsPerPage}
+	meta := Meta{CurrentPage: page, TotalElements: int(countmovies), TotalPages: totalPages, ObjectsPerPage: ObjectsPerPage}
 	data := Data{Movies: movies, Meta: meta}
 	return c.JSON(data)
 }
