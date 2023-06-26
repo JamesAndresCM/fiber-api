@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/JamesAndresCM/golang-fiber-example/app/models"
+  "github.com/JamesAndresCM/golang-fiber-example/app/services"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -12,7 +13,7 @@ func SignUp(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Error al analizar los datos de registro"})
 	}
 
-	tokenString, err := user.Register()
+	tokenString, err := services.RegisterUser(&user)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
@@ -21,7 +22,6 @@ func SignUp(c *fiber.Ctx) error {
 }
 
 func SignIn(c *fiber.Ctx) error {
-	var user models.User
 	// Obtener los datos de autenticación del cuerpo de la solicitud
 	var credentials struct {
 		Email    string `json:"email"`
@@ -35,7 +35,7 @@ func SignIn(c *fiber.Ctx) error {
 	}
 
 	// Autenticar al usuario y generar el token JWT
-	tokenString, err := user.Authenticate(credentials.Email, credentials.Password)
+	tokenString, err := services.AuthenticateUser(credentials.Email, credentials.Password)
 	if err != nil {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"message": err.Error(),
