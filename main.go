@@ -38,6 +38,6 @@ func RunMigrations() {
 	if migrate == "yes" {
 		log.Println("Start migrate process")
 		migration.Migrate()
-		log.Println("migration finished")
+    log.Fatal("Migration finished")
 	}
 }

@@ -1,7 +1,9 @@
 # fiber-example
 * install packages with go install
 * move `env_sample` to `.env` and set credentials
-* run migrations `go run run_migration.go --migrate=yes`
+* create database `CREATE DATABASE IF NOT EXISTS database_name` where database_name was previous set in your `env` file
+* run migrations `go run main.go --migrate=yes`
+* run proyect `go run main.go`
 
 
 # Endpoints

@@ -9,6 +9,7 @@ import (
 func Migrate() {
 	db := db.GetConnection()
 	db.AutoMigrate(&models.Movie{})
+  db.Migrator().DropTable(&models.CustomUser{})
 	db.AutoMigrate(&models.User{})
 
 	pgDB, err := db.DB()
