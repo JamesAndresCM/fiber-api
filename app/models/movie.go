@@ -16,7 +16,7 @@ type Movie struct {
 }
 
 func (movie *Movie) GetMovies(page, pageSize int) ([]*Movie, error) {
-    db := db.GetConnection()
+    db := db.DB.Db
     movies := []*Movie{}
     if result := db.Scopes(scopes.Paginate(page, pageSize)).Preload("User", func(db *gorm.DB) *gorm.DB {
         return db.Table("users")
@@ -27,7 +27,7 @@ func (movie *Movie) GetMovies(page, pageSize int) ([]*Movie, error) {
 }
 
 func (movie *Movie) CountMovies() (int64, error) {
-	db := db.GetConnection()
+  db := db.DB.Db
 	movies := []*Movie{}
 	var count int64
 	if result := db.Find(&movies).Count(&count); result.Error != nil {
@@ -37,7 +37,7 @@ func (movie *Movie) CountMovies() (int64, error) {
 }
 
 func (movie *Movie) GetMovie(id int) (*Movie, error) {
-	db := db.GetConnection()
+  db := db.DB.Db
 	if result := db.Find(&movie, id); result.Error != nil {
 		return movie, result.Error
 	}
@@ -45,7 +45,7 @@ func (movie *Movie) GetMovie(id int) (*Movie, error) {
 }
 
 func (movie *Movie) CreateMovie() (*Movie, error) {
-	db := db.GetConnection()
+  db := db.DB.Db
 	if result := db.Create(&movie); result.Error != nil {
 		return movie, result.Error
 	}
@@ -53,7 +53,7 @@ func (movie *Movie) CreateMovie() (*Movie, error) {
 }
 
 func (movie *Movie) Delete(id int) (int, error) {
-	db := db.GetConnection()
+  db := db.DB.Db
 	if result := db.Find(&movie, id); result.Error != nil {
 		return id, result.Error
 	}
@@ -62,7 +62,7 @@ func (movie *Movie) Delete(id int) (int, error) {
 }
 
 func (movie *Movie) Update(id int) (*Movie, error) {
-	db := db.GetConnection()
+  db := db.DB.Db
 	mov := Movie{Title: movie.Title, Description: movie.Description, Year: movie.Year}
 	if result := db.First(&movie, id).UpdateColumns(mov); result.Error != nil {
 		return nil, result.Error

@@ -12,6 +12,12 @@ import (
   "gorm.io/gorm/logger"
 )
 
+type Dbinstance struct {
+ Db *gorm.DB
+}
+
+var DB Dbinstance
+
 type database struct {
 	Host     string
 	Port     string
@@ -40,7 +46,7 @@ func getConfiguration() database {
 	return db
 }
 
-func GetConnection() *gorm.DB {
+func GetConnection() {
     c := getConfiguration()
     psqlInfo := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
         c.Host, c.Port, c.User, c.Database, c.Password)
@@ -52,5 +58,7 @@ func GetConnection() *gorm.DB {
         panic(err)
     }
 
-    return db
+    DB = Dbinstance{
+      Db: db,
+    }
 }

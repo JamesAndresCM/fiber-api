@@ -10,7 +10,7 @@ import (
 )
 
 func RegisterUser(user *models.User) (string, error) {
-	db := db.GetConnection()
+  db := db.DB.Db
 
 	var existingUser models.User
 
@@ -45,7 +45,7 @@ func RegisterUser(user *models.User) (string, error) {
 }
 
 func AuthenticateUser(email, password string) (string, error) {
-	db := db.GetConnection()
+  db := db.DB.Db
 	var user models.User
 
 	var err error
