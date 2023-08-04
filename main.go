@@ -11,11 +11,11 @@ import (
 )
 
 func main() {
+	db.GetConnection()
 	RunMigrations()
 	app := fiber.New()
 	app.Use(logger.New())
 
-	db.GetConnection()
 	routes.MovieRoutes(app)
 	routes.UserRoutes(app)
 	app.Get("/", func(c *fiber.Ctx) error {

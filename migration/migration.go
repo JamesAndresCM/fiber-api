@@ -7,7 +7,7 @@ import (
 )
 
 func Migrate() {
-	db := db.GetConnection()
+  db := db.DB.Db
 	db.AutoMigrate(&models.Movie{})
   db.Migrator().DropTable(&models.CustomUser{})
 	db.AutoMigrate(&models.User{})
