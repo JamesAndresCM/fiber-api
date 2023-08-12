@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"github.com/JamesAndresCM/golang-fiber-example/lib"
+	"github.com/JamesAndresCM/golang-fiber-example/app/dto"
 	"github.com/JamesAndresCM/golang-fiber-example/app/models"
 	"github.com/JamesAndresCM/golang-fiber-example/app/services"
+	"github.com/JamesAndresCM/golang-fiber-example/lib"
 	"github.com/gofiber/fiber/v2"
 	"math"
 	"strconv"
@@ -11,31 +12,16 @@ import (
 
 const ObjectsPerPage = 10
 
-var movieService = services.NewMovieService(models.DB)
-
-type Meta struct {
-	//TODO:include next page, current_page, etc
-	CurrentPage    int     `json:"current_page"`
-	TotalElements  int     `json:"total_elements"`
-	TotalPages     float64 `json:"total_pages"`
-	ObjectsPerPage int     `json:"objects_per_page"`
-}
-
-type Data struct {
-	Movies []*models.Movie
-	Meta   Meta
-}
-
 func ListAllMovies(c *fiber.Ctx) error {
 	page, _ := strconv.Atoi(c.Query("page", "1"))
 	pageSize, _ := strconv.Atoi(c.Query("pageSize", "10"))
 
-	movies, _ := movieService.GetMovies(page, pageSize)
-	countmovies, _ := movieService.CountMovies()
+	movies, _ := services.GetMovies(page, pageSize)
+	countmovies, _ := services.CountMovies()
 
 	totalPages := math.Ceil(float64(countmovies) / float64(pageSize))
-	meta := Meta{CurrentPage: page, TotalElements: int(countmovies), TotalPages: totalPages, ObjectsPerPage: ObjectsPerPage}
-	data := Data{Movies: movies, Meta: meta}
+	meta := dto.Meta{CurrentPage: page, TotalElements: int(countmovies), TotalPages: totalPages, ObjectsPerPage: ObjectsPerPage}
+	data := dto.Response{Movies: movies, Meta: meta}
 	return c.JSON(data)
 }
 
@@ -44,7 +30,7 @@ func GetMovie(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(lib.Response(200, err.Error()))
 	}
-	result, err := movieService.GetMovie(id)
+	result, err := services.GetMovie(id)
 	if err != nil {
 		return c.JSON(lib.Response(400, err.Error()))
 	}
@@ -56,12 +42,8 @@ func CreateMovie(c *fiber.Ctx) error {
 	if err := c.BodyParser(movie); err != nil {
 		return c.JSON(lib.Response(200, err.Error()))
 	}
-	if rawUserID, ok := c.Locals("user_id").(float64); ok { 
-		movie.UserID = uint(rawUserID)
-	} else {
-		return c.JSON(lib.Response(200, "user_id is missing or of wrong type"))
-	}
-	result, err := movieService.CreateMovie(movie)
+	movie.UserID = uint(c.Locals("user_id").(float64))
+	result, err := services.CreateMovie(movie)
 	if err != nil {
 		return c.JSON(lib.Response(200, err.Error()))
 	}
@@ -73,7 +55,8 @@ func DestroyMovie(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(lib.Response(200, err.Error()))
 	}
-	err = movieService.DeleteMovie(id)
+	userID := uint(c.Locals("user_id").(float64))
+	err = services.DeleteMovie(id, userID)
 	if err != nil {
 		return c.JSON(lib.Response(400, err.Error()))
 	}
@@ -90,8 +73,8 @@ func UpdateMovie(c *fiber.Ctx) error {
 	if err := c.BodyParser(movie); err != nil {
 		return c.JSON(lib.Response(200, err.Error()))
 	}
-
-	result, err := movieService.UpdateMovie(id, movie)
+	userID := uint(c.Locals("user_id").(float64))
+	result, err := services.UpdateMovie(id, movie, userID)
 	if err != nil {
 		return c.JSON(lib.Response(400, err.Error()))
 	}
