@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/JamesAndresCM/golang-fiber-example/lib"
 	"github.com/JamesAndresCM/golang-fiber-example/app/models"
-	"github.com/JamesAndresCM/golang-fiber-example/services"
+	"github.com/JamesAndresCM/golang-fiber-example/app/services"
 	"github.com/gofiber/fiber/v2"
 	"math"
 	"strconv"
