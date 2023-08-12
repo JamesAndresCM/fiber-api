@@ -32,8 +32,11 @@ func CountMovies() (int64, error) {
 func GetMovie(id int) (*models.Movie, error) {
 	db := db.DB.Db
 	movie := &models.Movie{}
-	if result := db.Find(movie, id); result.Error != nil {
-		return movie, result.Error
+	if result := db.First(movie, id); result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return nil, errors.New("Movie not found")
+		}
+		return nil, result.Error
 	}
 	return movie, nil
 }
@@ -49,7 +52,10 @@ func CreateMovie(movie *models.Movie) (*models.Movie, error) {
 func DeleteMovie(id int, userID uint) error {
 	db := db.DB.Db
 	movie := &models.Movie{}
-	if result := db.Find(movie, id); result.Error != nil {
+	if result := db.First(movie, id); result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return errors.New("Movie not found")
+		}
 		return result.Error
 	}
 	if movie.UserID != userID {
@@ -66,6 +72,9 @@ func UpdateMovie(id int, updatedMovie *models.Movie, userID uint) (*models.Movie
 	db := db.DB.Db
 	movie := &models.Movie{}
 	if result := db.First(movie, id); result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return nil, errors.New("Movie not found")
+		}
 		return nil, result.Error
 	}
 
