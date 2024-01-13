@@ -2,9 +2,9 @@ package services
 
 import (
 	"errors"
-	"github.com/JamesAndresCM/golang-fiber-example/app/models"
-	"github.com/JamesAndresCM/golang-fiber-example/app/models/scopes"
-	"github.com/JamesAndresCM/golang-fiber-example/db"
+	"github.com/JamesAndresCM/fiber-api/app/models"
+	"github.com/JamesAndresCM/fiber-api/app/models/scopes"
+	"github.com/JamesAndresCM/fiber-api/db"
 	"gorm.io/gorm"
 )
 

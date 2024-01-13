@@ -1,8 +1,8 @@
 package routes
 
 import (
-  "github.com/JamesAndresCM/golang-fiber-example/app/handlers"
-	"github.com/JamesAndresCM/golang-fiber-example/app/middlewares"
+  "github.com/JamesAndresCM/fiber-api/app/handlers"
+	"github.com/JamesAndresCM/fiber-api/app/middlewares"
   "github.com/gofiber/fiber/v2"
 )
 
