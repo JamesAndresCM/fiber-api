@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"github.com/JamesAndresCM/golang-fiber-example/app/dto"
-	"github.com/JamesAndresCM/golang-fiber-example/app/models"
-	"github.com/JamesAndresCM/golang-fiber-example/app/services"
-	"github.com/JamesAndresCM/golang-fiber-example/lib"
+	"github.com/JamesAndresCM/fiber-api/app/dto"
+	"github.com/JamesAndresCM/fiber-api/app/models"
+	"github.com/JamesAndresCM/fiber-api/app/services"
+	"github.com/JamesAndresCM/fiber-api/lib"
 	"github.com/gofiber/fiber/v2"
 	"math"
 	"strconv"

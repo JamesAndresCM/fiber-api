@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"github.com/JamesAndresCM/golang-fiber-example/app/models"
+	"github.com/JamesAndresCM/fiber-api/app/models"
 )
 
 type Response struct {

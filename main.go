@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"github.com/JamesAndresCM/golang-fiber-example/db"
-	"github.com/JamesAndresCM/golang-fiber-example/migration"
-	"github.com/JamesAndresCM/golang-fiber-example/routes"
+	"github.com/JamesAndresCM/fiber-api/db"
+	"github.com/JamesAndresCM/fiber-api/migration"
+	"github.com/JamesAndresCM/fiber-api/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"log"

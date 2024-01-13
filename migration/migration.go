@@ -1,9 +1,9 @@
 package migration
 
 import (
-	"github.com/JamesAndresCM/golang-fiber-example/app/models"
-	"github.com/JamesAndresCM/golang-fiber-example/db"
-	"github.com/JamesAndresCM/golang-fiber-example/lib"
+	"github.com/JamesAndresCM/fiber-api/app/models"
+	"github.com/JamesAndresCM/fiber-api/db"
+	"github.com/JamesAndresCM/fiber-api/lib"
 )
 
 func Migrate() {

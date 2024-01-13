@@ -2,7 +2,7 @@ package utils
 
 import (
 	"errors"
-	"github.com/JamesAndresCM/golang-fiber-example/lib"
+	"github.com/JamesAndresCM/fiber-api/lib"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/subosito/gotenv"
 	"os"

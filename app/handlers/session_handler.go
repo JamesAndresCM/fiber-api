@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/JamesAndresCM/golang-fiber-example/app/models"
-  "github.com/JamesAndresCM/golang-fiber-example/app/services"
+	"github.com/JamesAndresCM/fiber-api/app/models"
+  "github.com/JamesAndresCM/fiber-api/app/services"
 	"github.com/gofiber/fiber/v2"
 )
 
