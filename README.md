@@ -1,4 +1,4 @@
-# fiber-example
+# fiber-api
 * install packages with go install
 * move `env_sample` to `.env` and set credentials
 * create database `CREATE DATABASE IF NOT EXISTS database_name` where database_name was previous set in your `env` file
