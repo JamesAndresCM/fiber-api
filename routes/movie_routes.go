@@ -10,7 +10,7 @@ func MovieRoutes(app *fiber.App) {
 	api := app.Group("/api")
 
 	v1 := api.Group("/v1")
-	v1.Get("/movies", middlewares.JWTMiddleware(), handlers.ListAllMovies)
+	v1.Get("/movies", handlers.ListAllMovies)
 	v1.Get("/movies/:id", handlers.GetMovie)
 	v1.Post("/movies", middlewares.JWTMiddleware(), handlers.CreateMovie)
 	v1.Delete("/movies/:id", middlewares.JWTMiddleware(), handlers.DestroyMovie)
